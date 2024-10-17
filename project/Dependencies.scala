@@ -9,6 +9,7 @@ object Dependencies {
     val scalaCollectionCompat = "2.12.0"
     val zio                   = "2.1.11"
     val zioLogging            = "2.3.2"
+    val zioHttp               = "3.0.1"
     val izumiReflect          = "2.3.10"
   }
 
@@ -47,13 +48,6 @@ object Dependencies {
     Orgs.zio %% "zio-stacktracer" % Versions.zio
   )
 
-  lazy val opentracing = zio ++ Seq(
-    Orgs.opentracing       % "opentracing-api"         % Versions.opentracing,
-    Orgs.opentracing       % "opentracing-noop"        % Versions.opentracing,
-    Orgs.scalaLangModules %% "scala-collection-compat" % Versions.scalaCollectionCompat,
-    Orgs.opentracing       % "opentracing-mock"        % Versions.opentracing % Test
-  )
-
   lazy val opentelemetry = zio ++ Seq(
     Orgs.opentelemetry     % "opentelemetry-api"         % Versions.opentelemetry,
     Orgs.opentelemetry     % "opentelemetry-context"     % Versions.opentelemetry,
@@ -61,10 +55,11 @@ object Dependencies {
     Orgs.opentelemetry     % "opentelemetry-sdk-testing" % Versions.opentelemetry % Test
   )
 
-  lazy val opencensus = zio ++ Seq(
-    Orgs.opencensus        % "opencensus-api"          % Versions.opencensus,
-    Orgs.opencensus        % "opencensus-impl"         % Versions.opencensus,
-    Orgs.scalaLangModules %% "scala-collection-compat" % Versions.scalaCollectionCompat % Test
+  lazy val opentelemetryZioHttp = Seq(
+    Orgs.opentelemetry % "opentelemetry-api"         % Versions.opentelemetry,
+    Orgs.opentelemetry % "opentelemetry-context"     % Versions.opentelemetry,
+    Orgs.opentelemetry % "opentelemetry-sdk-testing" % Versions.opentelemetry % Test,
+    Orgs.zio          %% "zio-http"                  % Versions.zioHttp
   )
 
   lazy val opentelemetryZioLogging = Seq(
@@ -72,6 +67,19 @@ object Dependencies {
     Orgs.opentelemetry % "opentelemetry-context"     % Versions.opentelemetry,
     Orgs.opentelemetry % "opentelemetry-sdk-testing" % Versions.opentelemetry % Test,
     Orgs.zio          %% "zio-logging"               % Versions.zioLogging
+  )
+
+  lazy val opentracing = zio ++ Seq(
+    Orgs.opentracing       % "opentracing-api"         % Versions.opentracing,
+    Orgs.opentracing       % "opentracing-noop"        % Versions.opentracing,
+    Orgs.scalaLangModules %% "scala-collection-compat" % Versions.scalaCollectionCompat,
+    Orgs.opentracing       % "opentracing-mock"        % Versions.opentracing % Test
+  )
+
+  lazy val opencensus = zio ++ Seq(
+    Orgs.opencensus        % "opencensus-api"          % Versions.opencensus,
+    Orgs.opencensus        % "opencensus-impl"         % Versions.opencensus,
+    Orgs.scalaLangModules %% "scala-collection-compat" % Versions.scalaCollectionCompat % Test
   )
 
   lazy val example = zio ++ Seq(
