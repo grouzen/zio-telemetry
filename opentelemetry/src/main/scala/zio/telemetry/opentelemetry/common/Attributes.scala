@@ -10,7 +10,7 @@ object Attributes {
   def empty: api.common.Attributes =
     api.common.Attributes.empty()
 
-  def apply[T](attributes: Attribute[T]*): api.common.Attributes = {
+  def fromList[T](attributes: List[Attribute[T]]): api.common.Attributes = {
     val builder = api.common.Attributes.builder()
 
     attributes.foreach(attr => builder.put(attr.key, attr.value))

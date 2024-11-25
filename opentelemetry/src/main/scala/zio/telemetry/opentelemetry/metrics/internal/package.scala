@@ -8,7 +8,7 @@ import zio.telemetry.opentelemetry.common.{Attribute, Attributes}
 package object internal {
 
   private[metrics] def attributes(tags: Set[MetricLabel]): api.common.Attributes =
-    Attributes(tags.map(t => Attribute.string(t.key, t.value)).toSeq: _*)
+    Attributes.fromList(tags.map(t => Attribute.string(t.key, t.value)).toList)
 
   private[metrics] def logAnnotatedAttributes(attributes: api.common.Attributes, logAnnotated: Boolean)(implicit
     trace: Trace
@@ -16,7 +16,7 @@ package object internal {
     if (logAnnotated)
       for {
         annotations <- ZIO.logAnnotations
-        annotated    = Attributes(annotations.map { case (k, v) => Attribute.string(k, v) }.toSeq: _*)
+        annotated    = Attributes.fromList(annotations.map { case (k, v) => Attribute.string(k, v) }.toList)
         builder      = api.common.Attributes.builder()
         _            = builder.putAll(annotated)
         _            = builder.putAll(attributes)
