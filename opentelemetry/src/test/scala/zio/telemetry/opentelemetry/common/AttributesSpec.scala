@@ -1,7 +1,6 @@
 package zio.telemetry.opentelemetry.common
 
-import zio.test.ZIOSpecDefault
-import zio.test._
+import zio.test.{ZIOSpecDefault, _}
 
 object AttributesSpec extends ZIOSpecDefault {
 
